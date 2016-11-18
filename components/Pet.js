@@ -3,18 +3,25 @@ const React = require('react');
 class Pet extends React.Component {
   constructor() {
     super();
+    this.adoptPet = this.adoptPet.bind(this)
+    this.adoptButton = this.adoptButton.bind(this)
+  }
+  adoptPet(){
+    // this.props = Object.assign({}, this.props, {isAdopted: true})
+    this.props.onAdoptPet(this.props.pet.id)
+    this.adoptButton()
+  }
 
-    this.onAdoptPet = this.onAdoptPet.bind(this)
+  adoptButton() {
+    if (this.props.isAdopted) {
+      return <button className="ui disabled button" disabled>Already adopted</button>
+    } else {
+      return <button className="ui primary button" onClick = {this.adoptPet}>Adopt pet</button>
+    }
   }
-  onAdoptPet(){
-    // this.setState({
-    //   isAdopted : true
-    // })
-    this.props = Object.assign({}, this.props, {isAdopted: true})
-    this.render()
-    debugger
-  }
+
   render() {
+
     return (
       <div className="card">
         <div className="content">
@@ -28,7 +35,7 @@ class Pet extends React.Component {
           </div>
         </div>
         <div className="extra content">
-          {this.props.isAdopted ? <button className="ui disabled button" >Already adopted</button> : <button className="ui primary button" onClick = {this.onAdoptPet.bind(this)}>Adopt pet</button>}
+          {this.adoptButton()}
         </div>
       </div>
     );

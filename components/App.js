@@ -1,21 +1,28 @@
 const React = require('react');
-
 const Filters = require('./Filters');
 const PetBrowser = require('./PetBrowser');
+const { getAll } = require('../data/pets');
+const ALL_PETS = getAll();
 
 class App extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      pets: [],
+      pets:ALL_PETS,
       adoptedPets: [],
       filters: {
         type: 'all',
       }
     };
-  }
 
+  this.onAdoptPet = this.onAdoptPet.bind(this)
+  }
+  onAdoptPet(id){
+    this.setState({adoptedPets: [...this.state.adoptedPets, id]}) 
+
+    console.log(this.state.adoptedPets)
+  }
   render() {
     return (
       <div className="ui container">
@@ -28,7 +35,7 @@ class App extends React.Component {
               <Filters />
             </div>
             <div className="twelve wide column">
-              <PetBrowser />
+              <PetBrowser pets = {this.state.pets} onAdoptPet = {this.onAdoptPet} adoptedPets = {this.state.adoptedPets}/>
             </div>
           </div>
         </div>
