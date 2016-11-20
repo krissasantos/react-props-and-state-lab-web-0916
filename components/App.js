@@ -1,28 +1,75 @@
+
 const React = require('react');
+// const allPets = require('../data/pets')
 const Filters = require('./Filters');
 const PetBrowser = require('./PetBrowser');
-const { getAll } = require('../data/pets');
-const ALL_PETS = getAll();
 
 class App extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      pets:ALL_PETS,
+      pets:[],
       adoptedPets: [],
       filters: {
         type: 'all',
       }
     };
 
+
   this.onAdoptPet = this.onAdoptPet.bind(this)
+  this.onChangeType = this.onChangeType.bind(this)
+  this.onFindPetsClick = this.onFindPetsClick.bind(this)
+
+  
   }
+
+onFindPetsClick(){
+    // this.setState({})
+
+    let url = '/api/pets';
+
+    if (this.state.filters.type !== 'all'){
+     url += `?type=${this.state.filters.type}` //why backticks???
+    }
+        
+    // else{
+    //  url = `/api/pets`
+    // }
+
+    // fetch(url)
+
+    // return fetch(url)
+    //   .then((response) => response.json())
+    //   .then((response) => {
+    //   // return responseJson.movies;
+    //    this.setState({pets: response})
+    //   })
+    fetch(url)
+      .then(res => res.json())
+      .then(pets => this.setState({ pets }));
+     
+  }
+
+
+
+  onChangeType(value){
+    // this.setState({filters: {type: value}})
+     this.setState({
+      filters: Object.assign({}, this.state.filters, {
+        type: value,
+      })
+    });
+  }
+
   onAdoptPet(id){
     this.setState({adoptedPets: [...this.state.adoptedPets, id]}) 
-
     console.log(this.state.adoptedPets)
   }
+
+  
+
+
   render() {
     return (
       <div className="ui container">
@@ -32,10 +79,12 @@ class App extends React.Component {
         <div className="ui container">
           <div className="ui grid">
             <div className="four wide column">
-              <Filters />
+              <Filters filters={this.state.filters.type} 
+              onChangeType={this.onChangeType} 
+              onFindPetsClick={this.onFindPetsClick}/>
             </div>
             <div className="twelve wide column">
-              <PetBrowser pets = {this.state.pets} onAdoptPet = {this.onAdoptPet} adoptedPets = {this.state.adoptedPets}/>
+              <PetBrowser pets={this.state.pets} onAdoptPet={this.onAdoptPet} adoptedPets={this.state.adoptedPets}/>
             </div>
           </div>
         </div>
@@ -44,13 +93,6 @@ class App extends React.Component {
   }
 }
 
-// const MALE_DOG = {
-//   "id": "9e7cc723-d7f5-440d-8ead-c311e68014ee",
-//   "type": "dog",
-//   "gender": "male",
-//   "age": 8,
-//   "weight": 6,
-//   "name": "Kennedy"
-// };
+
 
 module.exports = App;

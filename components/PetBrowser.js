@@ -8,17 +8,10 @@ const ALL_PETS = getAll();
 class PetBrowser extends React.Component {
   constructor(){
     super();
-    // this.petFormatter = this.petFormatter.bind(this)
+    
   }
 
-  // petFormatter(all_the_pets){
-  //   let that = this
-  //   let petsFormatted = all_the_pets.map((animal){
-  //
-  //     return <Pet pet={animal} isAdopted={that.props.adoptedPets.includes(animal.id)} onAdoptPet = {that.props.onAdoptPet}/>
-  //   })
-  //   return petsFormatted
-  // }
+ 
 
   render() {
     console.log(this.props.adoptedPets)
@@ -35,15 +28,5 @@ class PetBrowser extends React.Component {
     );
   }
 }
-// <Pet pet={MALE_DOG} isAdopted={false} onAdoptPet = {this.props.onAdoptPet}/>
 
-// const MALE_DOG = {
-//   "id": "9e7cc723-d7f5-440d-8ead-c311e68014ee",
-//   "type": "dog",
-//   "gender": "male",
-//   "age": 8,
-//   "weight": 6,
-//   "name": "Kennedy",
-//
-// };
 module.exports = PetBrowser;
