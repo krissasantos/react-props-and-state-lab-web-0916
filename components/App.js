@@ -79,7 +79,7 @@ onFindPetsClick(){
         <div className="ui container">
           <div className="ui grid">
             <div className="four wide column">
-              <Filters filters={this.state.filters.type} 
+              <Filters filters={this.state.filters} 
               onChangeType={this.onChangeType} 
               onFindPetsClick={this.onFindPetsClick}/>
             </div>
