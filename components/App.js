@@ -81,7 +81,7 @@ onFindPetsClick(){
             <div className="four wide column">
               <Filters filters={this.state.filters} 
               onChangeType={this.onChangeType} 
-              onFindPetsClick={this.onFindPetsClick}/>
+              onFindPetsClick={this.onFindPetsClick} />
             </div>
             <div className="twelve wide column">
               <PetBrowser pets={this.state.pets} onAdoptPet={this.onAdoptPet} adoptedPets={this.state.adoptedPets}/>
